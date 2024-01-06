@@ -1,8 +1,6 @@
 package com.example.cryptoapp.remote.controller;
 
-import com.example.cryptoapp.remote.dto.CoinDetailDTO;
 import com.example.cryptoapp.remote.model.CoinDetail;
-import com.example.cryptoapp.remote.dto.CryptoQuoteResponse;
 import com.example.cryptoapp.remote.model.Coin;
 import com.example.cryptoapp.remote.service.CoinMarketCapService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +19,8 @@ public class CryptocurrencyController {
     @GetMapping("/api/v1/crypto/all")
     public ResponseEntity<Page<Coin>> getAllCoins(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "15") int size,
-            @RequestParam(defaultValue = "id") String sortBy) {
-        Page<Coin> coinsPage = coinMarketCapService.getAllCoins(page, size, sortBy);
+            @RequestParam(defaultValue = "15") int size) {
+        Page<Coin> coinsPage = coinMarketCapService.getAllCoins(page, size);
         return ResponseEntity.ok(coinsPage);
     }
 

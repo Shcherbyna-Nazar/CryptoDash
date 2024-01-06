@@ -3,6 +3,7 @@ package com.example.cryptoapp.user.service;
 import com.example.cryptoapp.user.model.User;
 import com.example.cryptoapp.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +26,20 @@ public class UserService {
     public User getUserByEmail(String userEmail) {
         return userRepository.findByEmail(userEmail).orElse(null);
     }
+
+    public User updateUserProfile(String userEmail, String firstName, String lastName, String bio) {
+        User user = getUserByEmail(userEmail);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setBio(bio);
+        userRepository.save(user);
+        return user;
+    }
+
 
     public String saveProfilePhoto(String userEmail, MultipartFile file) {
         User user = getUserByEmail(userEmail);

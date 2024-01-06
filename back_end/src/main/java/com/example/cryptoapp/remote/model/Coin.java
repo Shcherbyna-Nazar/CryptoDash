@@ -80,6 +80,5 @@ public class Coin {
     @JsonProperty("atl_date")
     private String atlDate;
 
-    private LocalDateTime lastUpdated;
 
 }

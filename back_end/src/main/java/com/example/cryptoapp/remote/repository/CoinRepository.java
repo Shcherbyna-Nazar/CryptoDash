@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface CoinRepository extends JpaRepository<Coin, String> {
-    Optional<Coin> findTopByOrderByLastUpdatedDesc();
 }

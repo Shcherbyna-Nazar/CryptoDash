@@ -17,7 +17,7 @@ import java.util.Map;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoinDetail{
+public class CoinDetail {
 
     @Id
     @Column(name = "id")
@@ -32,7 +32,7 @@ public class CoinDetail{
     @Column(name = "asset_platform_id")
     private String assetPlatformId;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "coin_platforms", joinColumns = @JoinColumn(name = "coin_id"))
     @MapKeyColumn(name = "platform_name")
     @Column(name = "platform_value")
@@ -41,22 +41,22 @@ public class CoinDetail{
     @Column(name = "hashing_algorithm")
     private String hashingAlgorithm;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "coin_categories", joinColumns = @JoinColumn(name = "coin_id"))
     @Column(name = "category")
     private List<String> categories;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "coin_descriptions", joinColumns = @JoinColumn(name = "coin_id"))
     @MapKeyColumn(name = "language")
     @Column(name = "description", columnDefinition = "text")
     private Map<String, String> description;
 
-    @OneToMany(mappedBy = "coinDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "coinDetail", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<CoinLink> links;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "coin_images", joinColumns = @JoinColumn(name = "coin_id"))
     @MapKeyColumn(name = "image_type")
     @Column(name = "image_url")
@@ -98,5 +98,4 @@ public class CoinDetail{
 
     @Column(name = "public_interest_score")
     private Double publicInterestScore;
-    private LocalDateTime lastUpdated;
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,6 +30,17 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
+
+    @PostMapping("/{userEmail}/updateProfile")
+    public ResponseEntity<?> updateUserProfile(@PathVariable String userEmail, @RequestBody Map<String, String> updates) {
+        try {
+            User updatedUser = userService.updateUserProfile(userEmail, updates.get("firstName"), updates.get("lastName"), updates.get("bio"));
+            return ResponseEntity.ok(updatedUser);
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found", e);
+        }
+    }
+
 
     @PostMapping("/{userEmail}/uploadPhoto")
     public ResponseEntity<?> uploadProfilePhoto(@PathVariable String userEmail, @RequestParam("file") MultipartFile file) {
