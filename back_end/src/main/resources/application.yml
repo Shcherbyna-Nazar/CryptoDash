@@ -44,3 +44,5 @@ logging:
         security: DEBUG
         web:
           cors: DEBUG
+server:
+  port: 80
