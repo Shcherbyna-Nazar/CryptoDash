@@ -24,7 +24,7 @@ jobs:
         run: chmod +x ./back_end/gradlew
 
       - name: Build with Gradle
-        run: ./back_end/gradlew bootJar -x test
+        run: ./gradlew bootJar -x test
         working-directory: ./back_end
 
       - name: Deploy to Azure Web App
