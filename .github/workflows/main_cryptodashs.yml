@@ -24,7 +24,7 @@ jobs:
         run: chmod +x ./back_end/gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: ./back_end/gradlew bootJar -x test
         working-directory: ./back_end
 
       - name: Deploy to Azure Web App
@@ -32,4 +32,4 @@ jobs:
         with:
           app-name: 'cryptodashs' # Замените на имя вашего Azure Web App
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Замените на ваш Azure publish profile secret
-          package: './back_end/build/libs/*.jar' # Укажите путь к собранному файлу
+          package: './back_end/build/libs/*.jar' # Путь к собранному JAR-файлу
