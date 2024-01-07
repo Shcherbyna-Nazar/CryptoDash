@@ -34,6 +34,13 @@ public class User implements UserDetails {
     @Setter
     private String bio;
 
+    @Getter
+    @Setter
+    private String oauth2Provider;  // e.g., "google"
+    @Getter
+    @Setter
+    private String oauth2ProviderId; // ID provided by the OAuth2 provider
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

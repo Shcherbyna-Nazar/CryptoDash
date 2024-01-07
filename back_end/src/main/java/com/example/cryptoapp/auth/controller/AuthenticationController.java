@@ -2,14 +2,12 @@ package com.example.cryptoapp.auth.controller;
 
 import com.example.cryptoapp.auth.other.AuthenticationRequest;
 import com.example.cryptoapp.auth.other.AuthenticationResponse;
+import com.example.cryptoapp.auth.other.GoogleTokenVerificationRequest;
 import com.example.cryptoapp.auth.service.AuthenticationService;
 import com.example.cryptoapp.auth.other.ReqisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,5 +24,9 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+    @PostMapping("/google")
+    public ResponseEntity<AuthenticationResponse> authenticateWithGoogle(@RequestBody GoogleTokenVerificationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticateWithGoogle(request));
     }
 }

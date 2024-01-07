@@ -63,7 +63,7 @@ public class CoinDetail {
     private Map<String, String> image;
 
     @Lob
-    @Column(name = "market_data")
+    @Column(name = "market_data", columnDefinition = "text")
     private String marketData;
 
     @Column(name = "country_origin")

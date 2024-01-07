@@ -87,7 +87,7 @@ public class UserService {
 
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
-        if(dotIndex >= 0) {
+        if (dotIndex >= 0) {
             return fileName.substring(dotIndex);
         }
         return "";
@@ -105,6 +105,14 @@ public class UserService {
         } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     public static class StorageException extends RuntimeException {
