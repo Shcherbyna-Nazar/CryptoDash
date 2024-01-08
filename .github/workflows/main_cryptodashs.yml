@@ -14,10 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 17
+      - name: Set up JDK 18
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '18'
           distribution: 'temurin' # AdoptOpenJDK перешёл на Eclipse Temurin
 
       - name: Grant execute permission for gradlew
