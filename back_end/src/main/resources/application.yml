@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}g
+    url: ${DATABASE_URL}
     username: nazar
     password: V3jaL9ia
     driver-class-name: com.mysql.cj.jdbc.Driver
