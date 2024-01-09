@@ -26,6 +26,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew bootJar -x test
         working-directory: back_end
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          GOOGLE_API_CLIENT_ID: ${{ secrets.GOOGLE_API_CLIENT_ID }}
+          GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
+          GOOGLE_API_REDIRECT_URI: ${{ secrets.GOOGLE_API_REDIRECT_URI }}
+          COINGECKO_KEY: ${{ secrets.COINGECKO_KEY }}
+
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
