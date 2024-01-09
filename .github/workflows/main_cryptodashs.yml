@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'temurin' # AdoptOpenJDK перешёл на Eclipse Temurin
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./back_end/gradlew
@@ -26,18 +26,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew bootJar -x test
         working-directory: back_end
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          GOOGLE_API_CLIENT_ID: ${{ secrets.GOOGLE_API_CLIENT_ID }}
-          GOOGLE_API_CLIENT_SECRET: ${{ secrets.GOOGLE_API_CLIENT_SECRET }}
-          GOOGLE_API_REDIRECT_URI: ${{ secrets.GOOGLE_API_REDIRECT_URI }}
-          COINGECKO_KEY: ${{ secrets.COINGECKO_KEY }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'cryptodashweb'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: 'back_end/build/libs/*.jar'
+          app-name: 'cryptodashweb' # Замените на имя вашего Azure Web App
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Замените на ваш Azure publish profile secret
+          package: 'back_end/build/libs/*.jar' # Путь к собранному JAR-файлу

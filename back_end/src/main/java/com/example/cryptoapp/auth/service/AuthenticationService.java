@@ -9,7 +9,6 @@ import com.example.cryptoapp.user.model.Role;
 import com.example.cryptoapp.user.model.User;
 import com.example.cryptoapp.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,8 +30,7 @@ public class AuthenticationService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    @Value("${google.api.clientId}")
-    private String CLIENT_ID;
+    private static final String CLIENT_ID = "696132791550-ral8gkn00orccirt8g5ar2mp66ul4ovk.apps.googleusercontent.com";
 
     public AuthenticationResponse register(ReqisterRequest request) {
         // Check if user already exists
