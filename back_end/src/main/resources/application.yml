@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://cryptodash.mysql.database.azure.com:3306/cryptodash?useSSL=true&requireSSL=false&serverTimezone=UTC
+    url: ${DATABASE_URL}g
     username: nazar
     password: V3jaL9ia
     driver-class-name: com.mysql.cj.jdbc.Driver
