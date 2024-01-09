@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:mysql://cryptodash.mysql.database.azure.com:3306/cryptodash?useSSL=true&requireSSL=false&serverTimezone=UTC
+    username: nazar
+    password: V3jaL9ia
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -20,20 +20,29 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_API_CLIENT_ID}
-            client-secret: ${GOOGLE_API_CLIENT_SECRET}
-            redirect-uri: ${GOOGLE_API_REDIRECT_URI}
+            client-id: 696132791550-ral8gkn00orccirt8g5ar2mp66ul4ovk.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/api/v1/auth/google
             scope:
               - email
               - profile
 
+coinmarketcap:
+  api:
+    key: 75280beb-060d-4285-83b9-9bfb6d0d94b5
+    url: https://pro-api.coinmarketcap.com/
+
 coingecko:
   api:
-    key: ${COINGECKO_KEY}
+    key: CG-9ymgeh5BQsnSuBx9rmiFVk7q
     url: https://api.coingecko.com/api/v3/
 
-google:
-  api:
-    clientId: ${GOOGLE_API_CLIENT_ID}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web:
+          cors: DEBUG
 server:
   port: 8080
