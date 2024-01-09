@@ -59,14 +59,13 @@ public class UserService {
             Path userDirectory = rootLocation.resolve(userEmail);
             Files.createDirectories(userDirectory);
 
-            String filename = "profile_photo" + getFileExtension(file.getOriginalFilename());  // Это заменит существующий файл
+            String filename = "profile_photo" + getFileExtension(file.getOriginalFilename());
             Path destinationFile = userDirectory.resolve(Paths.get(filename)).normalize().toAbsolutePath();
 
             if (!destinationFile.getParent().equals(userDirectory.toAbsolutePath())) {
                 throw new StorageException("Cannot store file outside current directory");
             }
 
-            // Сохраняем файл
             try (var inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
                 String photoUrl = convertPathToUrl(destinationFile);

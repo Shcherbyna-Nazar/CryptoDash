@@ -32,7 +32,6 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final UserService userService;
-    private final ClientRegistrationRepository clientRegistrationRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -61,9 +60,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://icy-pond-03d803203.4.azurestaticapps.net")); // Allow only the React app
+        configuration.setAllowedOrigins(List.of("https://icy-pond-03d803203.4.azurestaticapps.net", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*")); // Allow all headers
+        configuration.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -75,24 +74,19 @@ public class SecurityConfig {
     public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService() {
         DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
         return request -> {
-            // Delegate to the default implementation for loading a user
             OAuth2User oAuth2User = delegate.loadUser(request);
 
-            // Extract information from OAuth2User
             String email = oAuth2User.getAttribute("email");
             String name = oAuth2User.getAttribute("name");
-            String oauth2ProviderId = oAuth2User.getName(); // The unique ID from the provider
+            String oauth2ProviderId = oAuth2User.getName();
 
-            // Lookup or create a User entity in your database
             User user = userService.findByEmail(email);
             if (user == null) {
-                // Register a new user in your database
                 user = User.builder()
                         .email(email)
-                        .firstName(name) // or split the name into firstName and lastName if needed
+                        .firstName(name)
                         .oauth2Provider("google")
                         .oauth2ProviderId(oauth2ProviderId)
-                        // Assign a default role or based on the OAuth2 details
                         .role(Role.USER)
                         .build();
                 userService.save(user);
