@@ -94,7 +94,7 @@ public class UserService {
 
     private String convertPathToUrl(Path path) {
         String filename = path.getFileName().toString();
-        return "http://localhost:8080/api/v1/images/" + path.getParent().getFileName() + "/" + filename;
+        return "https://cryptodashweb.azurewebsites.net/api/v1/images/" + path.getParent().getFileName() + "/" + filename;
     }
 
 
